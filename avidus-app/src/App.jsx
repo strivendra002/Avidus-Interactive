@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
@@ -15,15 +15,28 @@ import AdminRoute from "./routes/AdminRoute";
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
 
       <Route path="/register" element={<Register />} />
 
-      <Route element={<PrivateRoute><UserLayout /></PrivateRoute>}>
+      <Route
+        element={
+          <PrivateRoute>
+            <UserLayout />
+          </PrivateRoute>
+        }
+      >
         <Route path="/tasks" element={<UserDashboard />} />
       </Route>
 
-      <Route element={<AdminRoute><AdminLayout /></AdminRoute>}>
+      <Route
+        element={
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        }
+      >
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/tasks" element={<AdminTasks />} />
